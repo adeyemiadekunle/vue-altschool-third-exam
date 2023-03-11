@@ -1,51 +1,77 @@
 // router.js
 
 import { createRouter, createWebHistory } from 'vue-router';
-import store from './store';
+import Home from '../views/HomeComp.vue';
+import Login from '../views/LoginComp.vue';
+import Signup from '../views/SignUpComp.vue';
+import Products from '../views/ProductsComp.vue';
+import Product from '../views/ProductComp.vue';
+import NotFound from '../views/NotFound.vue';
+
+
+const routes = [
+  {
+    path: '/',
+    name: 'DashboardComp',
+    component: () => import('../layout/DashboardComp.vue'),
+    children: [
+      {
+        path: '/',
+        name: 'Home',
+        component: Home,
+      },
+     
+      {
+        path: '/login',
+        name: 'Login',
+        component: Login,
+      },
+      {
+        path: '/signup',
+        name: 'Signup',
+        component: Signup,
+      },
+      {
+        path: '/products',
+        name: 'Products',
+        component: Products,
+        //   meta: { requiresAuth: true },
+      },
+      {
+        path: '/products/:id',
+        name: 'Product',
+        component: Product,
+        //   meta: { requiresAuth: true },
+      },
+      {
+        path: '/:catchAll(.*)',
+        name: 'NotFound',
+        component: NotFound,
+      },
+    ],
+  },
+];
 
 const router = createRouter({
   history: createWebHistory(),
-  routes: [
-    {
-      path: '/',
-      Component: Home,
-    },
-    {
-      path: '/login',
-      component: Login,
-    },
-    {
-      path: '/signup',
-      component: Signup,
-    },
-    {
-      path: '/products',
-      component: Products,
-      meta: { requiresAuth: true },
-    },
-    // {
-    //   path: '/logout',
-    //   component: Logout,
-    //   meta: { requiresAuth: true },
-    // },
-  ],
+  routes,
 });
 
 // Navigation guard to check if the user is authenticated
-router.beforeEach((to, from, next) => {
-  const requiresAuth = to.matched.some(
-    (record) => record.meta.requiresAuth
-  );
-  const isLoggedIn = store.getters.isLoggedIn;
+// router.beforeEach((to, from, next) => {
+//   const requiresAuth = to.matched.some(
+//     (record) => record.meta.requiresAuth
+//   );
+//   const isLoggedIn = store.getters.isLoggedIn;
 
-  if (requiresAuth && !isLoggedIn) {
-    next('/login');
-  } else if (to.path === '/products' && !isLoggedIn) {
-    next(false); // Prevents the user from accessing the products page
-    alert('You must be logged in to view this page');
-  } else {
-    next();
-  }
-});
+//   if (requiresAuth && !isLoggedIn) {
+//     next('/login');
+//   } else if (to.path === '/products' && !isLoggedIn) {
+//     next(false);
+//     alert('You must be logged in to view this page');
+//   } else {
+//     next();
+//   }
+// });
 
 export default router;
