@@ -35,6 +35,7 @@ export default {
   flex-direction: column;
   justify-content: center;
   height: 10vh;
+  background-color: #f5f5f5;
 }
 
 .logo_container {
@@ -48,7 +49,7 @@ export default {
 .logo {
   font-size: 2rem;
   font-weight: 700;
-  color: #b8118e;
+  color: #428bca;
   font-style: italic;
 }
 

@@ -40,7 +40,7 @@ export default {};
 .home-content h1 {
   font-size: 3rem;
   font-weight: 700;
-  color: #b8118e;
+  color: #428bca;
   font-style: italic;
   margin-top: 7rem;
 }
@@ -54,7 +54,7 @@ export default {};
 }
 
 .home-content button {
-  background-color: #b8118e;
+  background-color: #428bca;
   color: #fff;
   padding: 0.5rem 1rem;
   border: none;
@@ -67,10 +67,11 @@ export default {};
 }
 
 .home-content button:hover {
-  background-color: #000;
-  color: #fff;
+ background-color: #fff;
+  color: #428bca;
+  border: 2px solid #428bca;
+  cursor: pointer;
 }
-
 
 
 </style>

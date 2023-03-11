@@ -1,25 +1,32 @@
 <template>
-  <h1 class="products-heading">Products List</h1>
+  <div class="products">
+    <h1 class="products-heading">Products List</h1>
 
-  <div class="products-container">
-    <div v-if="loading">Loading...</div>
+    <div class="products-container">
+      <div v-if="loading">Loading...</div>
 
-    <!-- the product card -->
-    <div v-else v-for="product in products" :key="product.id">
-      <div class="product-card">
-        <div class="image-container">
-          <img :src="product.images[0]" alt="Product Image" />
-        </div>
-        <div class="product-details">
-          <h4>{{ product.title }}</h4>
-          <p>{{ product.description }}</p>
-          <div class="price">
-            <span class="currency">$</span>
-            <span class="value">{{ product.price }}</span>
+      <!-- the product card -->
+      <div
+        v-else
+        v-for="product in products"
+        :key="product.id"
+        @click="$router.push(`/products/${product.id}`)"
+      >
+        <div class="product-card">
+          <div class="image-container">
+            <img :src="product.images[0]" alt="Product Image" />
           </div>
-        </div>
-        <div class="button-container">
-          <button>Add to Cart</button>
+          <div class="product-details">
+            <h4>{{ product.title }}</h4>
+            <p>{{ product.description }}</p>
+            <div class="price">
+              <span class="currency">$</span>
+              <span class="value">{{ product.price }}</span>
+            </div>
+          </div>
+          <div class="button-container">
+            <button>Add to Cart</button>
+          </div>
         </div>
       </div>
     </div>
@@ -41,11 +48,17 @@ export default {
 </script>
 
 <style scoped >
-.products-heading {
-  text-align: center;
-  margin-top: 2rem;
+.products {
+  background: white;
+  margin: 4rem;
+  padding-top: 50px;
+  padding-bottom: 50px;
 }
 
+.products-heading {
+  text-align: left;
+  padding-left: 2rem;
+}
 
 .products-container {
   display: flex;
@@ -59,8 +72,8 @@ export default {
   flex-direction: column;
   border: 1px solid #ccc;
   border-radius: 5px;
-  width: 300px;
-  height: 400px;
+  width: 250px;
+  height: 350px;
   position: relative;
   transition: all 0.3s ease-in-out;
 }
@@ -71,7 +84,7 @@ export default {
 
 .image-container {
   width: 100%;
-  height: 300px;
+  height: 250px;
 }
 
 img {
@@ -96,6 +109,7 @@ h4 {
   overflow: hidden;
   margin-left: 0.5rem;
   margin-top: 0.5rem;
+  width: 220px;
 }
 
 p {
@@ -106,6 +120,8 @@ p {
   white-space: nowrap;
   margin-left: 0.5rem;
   margin-right: 0.5rem;
+  width: 220px;
+  
 }
 
 .price {
@@ -145,6 +161,5 @@ button {
 
 .product-card:hover .button-container {
   display: block;
-
 }
 </style>
