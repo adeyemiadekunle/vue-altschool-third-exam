@@ -18,10 +18,9 @@
 <style  scoped>
 .footer {
     background-color: #f8f9fa;
-    /* width: 100%; */
     height: 10vh;
     border: 1px solid red;
-    /* margin-top: auto; */
+
 
 
 }

@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { useProducts } from "../composable/useProducts";
+import { useProducts } from "@/composable/useProducts";
 
 export default {
   setup() {

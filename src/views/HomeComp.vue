@@ -20,9 +20,8 @@ export default {};
 
 <style  scoped>
 .home {
-  width: 100%;  
+  /* width: 100%;   */
   height: 80vh;
-
   /* background: url("../assets/images/home-bg.jpg") no-repeat center center/cover; */
 
 }
