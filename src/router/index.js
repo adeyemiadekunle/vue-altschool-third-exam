@@ -47,15 +47,15 @@ const routes = [
     name: 'Login',
     component: Login,
     meta: {
-      requiresGuest: true
+      requiresAuth: false
     }
   },
   {
     path: '/signup',
-    name: 'Signup',
+    name: 'signUp',
     component: Signup,
     meta: {
-      requiresGuest: true
+      requiresAuth: false
     }
   },
 ];
@@ -67,20 +67,24 @@ const router = createRouter({
 
 
 
-// Navigation guard to prevent access to routes that require authentication
 router.beforeEach((to, from, next) => {
-  const currentUser = auth.currentUser;
-  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
-  const requiresGuest = to.matched.some(record => record.meta.requiresGuest);
+  const isLoggedIn = auth.currentUser;
 
-  if (requiresAuth && !currentUser) {
-    next('/login');
-  } else if (requiresGuest && currentUser) {
-    next('/products');
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!isLoggedIn) {
+      next({ name: 'Login' })
+    } else {
+      next()
+    }
   } else {
-    next();
+    if (isLoggedIn && (to.name === 'Login' || to.name === 'signUp')) {
+      next({ name: 'Products' })
+    } else {
+      next()
+    }
   }
-});
+})
+
 
 
 
