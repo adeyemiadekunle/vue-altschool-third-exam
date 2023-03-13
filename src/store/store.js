@@ -1,23 +1,24 @@
-import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
-import { getDatabase, ref, set, get } from "firebase/database";
+// import { initializeApp } from "firebase/app";
+
+// import { getDatabase, ref, set, get } from "firebase/database";
 import { createStore } from "vuex";
+import { auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, ref, set, db, get  } from "../firebaseConfig"
 
-// Initialize Firebase app
-const firebaseConfig = {
-  // your firebase config object here
-  apiKey: "AIzaSyA6TqjxSeZ7fnvMZeVE7VHpsZr3u1v0Ac4",
-  authDomain: "vue-altschool-third-exam.firebaseapp.com",
-  projectId: "vue-altschool-third-exam",
-  storageBucket: "vue-altschool-third-exam.appspot.com",
-  messagingSenderId: "422327894895",
-  appId: "1:422327894895:web:a20ca737d97424e007de9a"
-};
-const firebaseApp = initializeApp(firebaseConfig);
+// // Initialize Firebase app
+// const firebaseConfig = {
+//   // your firebase config object here
+//   apiKey: "AIzaSyA6TqjxSeZ7fnvMZeVE7VHpsZr3u1v0Ac4",
+//   authDomain: "vue-altschool-third-exam.firebaseapp.com",
+//   projectId: "vue-altschool-third-exam",
+//   storageBucket: "vue-altschool-third-exam.appspot.com",
+//   messagingSenderId: "422327894895",
+//   appId: "1:422327894895:web:a20ca737d97424e007de9a"
+// };
+// const firebaseApp = initializeApp(firebaseConfig);
 
-// Initialize Firebase services
-export const auth = getAuth(firebaseApp);
-const db = getDatabase(firebaseApp);
+// // Initialize Firebase services
+// export const auth = getAuth(firebaseApp);
+// const db = getDatabase(firebaseApp);
 
 const store = createStore({
   state: {
@@ -29,7 +30,6 @@ const store = createStore({
   mutations: {
     setUser(state, user) {
       state.user = user;
-      state.isLoggedIn = true;
     },
     setFirstName(state, firstName) {
       state.firstName = firstName;
@@ -37,9 +37,8 @@ const store = createStore({
     setLastName(state, lastName) {
       state.lastName = lastName;
     },
-    unsetUser(state) {
-      state.user = null;
-      state.isLoggedIn = false;
+    setIsLoggedIn(state) {
+      state.isLoggedIn = true;
     }
   },
   
@@ -50,6 +49,7 @@ const store = createStore({
           .then(userCredential => {
             const user = userCredential.user;
             commit('setUser', user.uid);
+            commit('setIsLoggedIn', true);
             commit('setFirstName', firstName);
             commit('setLastName', lastName);
             set(ref(db, `users/${user.uid}`), {
@@ -78,6 +78,7 @@ const store = createStore({
             get(userRef)
               .then(snapshot => {
                 const userData = snapshot.val();
+                commit('setIsLoggedIn', true)
                 commit('setFirstName', userData.firstName);
                 commit('setLastName', userData.lastName);
                 console.log(userData.firstName);
@@ -96,7 +97,7 @@ const store = createStore({
       return new Promise((resolve, reject) => {
         signOut(auth)
           .then(() => {
-            commit('unsetUser');
+            commit('setUser', null);
             commit('setFirstName', '');
             commit('setLastName', '');
             resolve();
@@ -112,7 +113,7 @@ const store = createStore({
     currentUser: state => state.user,
     userFirstName: state => state.firstName,
     userLastName: state => state.lastName,
-    islLoggedIn: state => state.isLoggedIn
+    isLoggedIn: state => state.isLoggedIn
   }
 });
 

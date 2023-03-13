@@ -8,18 +8,10 @@
         <div class="nav-item">
           <router-link to="/">Home</router-link>
           <router-link to="/products">Products</router-link>
-        </div>
-
-        <div class="other-nav-item">
-          <!-- <div v-if="isLoggedIn">
-            <span>Welcome, {{ currentUser }}</span>
-          
-            
-          </div> -->
-          <button @click="logout">Logout</button>
-          <router-link to="/login">Login</router-link>
-          <router-link to="/signup">Signup</router-link>
-        </div>
+          <a v-if="isLoggedIn" @click="logout">Logout</a>
+          <router-link  v-if="!isLoggedIn" to="/login">Login</router-link>
+          <router-link v-if="!isLoggedIn" to="/signup">Signup</router-link>
+         </div>
       </nav>
     </div>
   </div>
@@ -29,14 +21,15 @@
 export default {
   name: "NavBarComp",
 
-  // computed: {
-  //   isLoggedIn() {
-  //     return this.$store.getters.isLoggedIn;
-  //   },
-  //   currentUser() {
-  //     return this.$store.getters.currentUser;
-  //   }
-  // },
+  computed: {
+    isLoggedIn() {
+      return this.$store.getters.isLoggedIn;
+    },
+    currentUser() {
+      return this.$store.getters.currentUser;
+    }
+  },
+
   methods: {
     logout() {
       this.$store.dispatch("logOut");

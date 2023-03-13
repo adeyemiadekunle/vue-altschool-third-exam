@@ -7,7 +7,7 @@ import Signup from '../views/SignUpComp.vue';
 import Products from '../views/ProductsComp.vue';
 import Product from '../views/ProductComp.vue';
 import NotFound from '../views/NotFound.vue';
-import {auth} from '../store/store.js';
+import {auth} from '../firebaseConfig';
 
 
 
