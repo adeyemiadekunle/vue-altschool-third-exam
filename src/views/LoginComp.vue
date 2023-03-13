@@ -7,16 +7,16 @@
           <h1>Login</h1>
         </div>
         <div class="form-body">
-          <form @submit.prevent="login">
+          <form @submit.prevent="handleSubmit">
             <label> Email </label>
-            <input type="email" v-model="email" />
+            <input type="email" id="email" v-model="email" />
             <label> Password </label>
-            <input type="password" v-model="password" />
+            <input type="password" id="password" v-model="password" />
             <button type="submit">Login</button>
           </form>
         </div>
       </div>
-       <div class="noexisting-account-login">
+      <div class="noexisting-account-login">
         <div>
           <p>Don't have an account?</p>
           <router-link to="/signup" class="button">Create An Account</router-link>
@@ -30,19 +30,31 @@
 // import { mapActions } from 'vuex'
 
 export default {
-  //   data() {
-  //     return {
-  //       email: '',
-  //       password: ''
-  //     }
-  //   },
-  //   methods: {
-  //     ...mapActions(['login']),
-  //     async login() {
-  //       await this.login({ email: this.email, password: this.password })
-  //       this.$router.push('/products')
-  //     }
-  //   }
+  data() {
+    return {
+      email: "",
+      password: "",
+    };
+  },
+  methods: {
+     async handleSubmit() {
+      this.$store
+        .dispatch("logIn", {
+          email: this.email,
+          password: this.password,
+        })
+        .then(() => {
+          this.$router.push("/products");
+          console.log('success');
+          console.log(this.$store.state.user);
+          // console.log(this.$store.state.firstName);
+          // console.log(this.$store.state.lastName);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+  },
 };
 </script>
 
@@ -101,7 +113,7 @@ export default {
 }
 
 .form-body form button {
-   padding: 10px;
+  padding: 10px;
   background: green;
   color: white;
   border: none;
@@ -111,12 +123,12 @@ export default {
   transition: all 0.3s ease-in-out;
 }
 
-.form-body form button:hover{
+.form-body form button:hover {
   opacity: 0.9;
 }
 
-.noexisting-account-login{
-   width: 40%;
+.noexisting-account-login {
+  width: 40%;
   margin: 0 auto;
   padding: 20px;
   height: 100%;
@@ -155,11 +167,8 @@ export default {
   transition: all 0.3s ease-in-out;
 }
 
-
 .noexisting-account-login .button:hover {
   background: blue;
   color: white;
 }
-
-
 </style>

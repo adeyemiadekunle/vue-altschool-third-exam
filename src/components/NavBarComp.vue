@@ -13,9 +13,11 @@
         <div class="other-nav-item">
           <!-- <div v-if="isLoggedIn">
             <span>Welcome, {{ currentUser }}</span>
-            <button @click="logout">Logout</button>
+          
+            
           </div> -->
-          <router-link to="/login" >Login</router-link>
+          <button @click="logout">Logout</button>
+          <router-link to="/login">Login</router-link>
           <router-link to="/signup">Signup</router-link>
         </div>
       </nav>
@@ -25,9 +27,26 @@
 
 <script>
 export default {
-  name: "NavBar",
+  name: "NavBarComp",
+
+  // computed: {
+  //   isLoggedIn() {
+  //     return this.$store.getters.isLoggedIn;
+  //   },
+  //   currentUser() {
+  //     return this.$store.getters.currentUser;
+  //   }
+  // },
+  methods: {
+    logout() {
+      this.$store.dispatch("logOut");
+      this.$router.push("/login");
+      
+    },
+  },
 };
 </script>
+
 
 <style scoped>
 .header {
@@ -53,7 +72,6 @@ export default {
   font-style: italic;
 }
 
-
 .nav-container {
   width: 95%;
   margin: 0 auto;
@@ -64,20 +82,17 @@ export default {
 .nav-items {
   display: flex;
   align-items: center;
-
-
 }
 
-.nav-item, .other-nav-item {
+.nav-item,
+.other-nav-item {
   display: flex;
-
 }
 
-.nav-items  a {
-  margin-left:  2rem;
+.nav-items a {
+  margin-left: 2rem;
   text-decoration: none;
   color: black;
   font-size: 1.2rem;
 }
-
 </style>

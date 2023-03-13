@@ -7,6 +7,8 @@ import Signup from '../views/SignUpComp.vue';
 import Products from '../views/ProductsComp.vue';
 import Product from '../views/ProductComp.vue';
 import NotFound from '../views/NotFound.vue';
+import {auth} from '../store/store.js';
+
 
 
 const routes = [
@@ -25,13 +27,13 @@ const routes = [
         path: '/products',
         name: 'Products',
         component: Products,
-        //   meta: { requiresAuth: true },
+          meta: { requiresAuth: true },
       },
       {
         path: '/products/:productId',
         name: 'Product',
         component: Product,
-        //   meta: { requiresAuth: true },
+          meta: { requiresAuth: true },
       },
       {
         path: '/:catchAll(.*)',
@@ -44,11 +46,17 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login,
+    meta: {
+      requiresGuest: true
+    }
   },
   {
     path: '/signup',
     name: 'Signup',
     component: Signup,
+    meta: {
+      requiresGuest: true
+    }
   },
 ];
 
@@ -57,21 +65,23 @@ const router = createRouter({
   routes,
 });
 
-// Navigation guard to check if the user is authenticated
-// router.beforeEach((to, from, next) => {
-//   const requiresAuth = to.matched.some(
-//     (record) => record.meta.requiresAuth
-//   );
-//   const isLoggedIn = store.getters.isLoggedIn;
 
-//   if (requiresAuth && !isLoggedIn) {
-//     next('/login');
-//   } else if (to.path === '/products' && !isLoggedIn) {
-//     next(false);
-//     alert('You must be logged in to view this page');
-//   } else {
-//     next();
-//   }
-// });
+
+// Navigation guard to prevent access to routes that require authentication
+router.beforeEach((to, from, next) => {
+  const currentUser = auth.currentUser;
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+  const requiresGuest = to.matched.some(record => record.meta.requiresGuest);
+
+  if (requiresAuth && !currentUser) {
+    next('/login');
+  } else if (requiresGuest && currentUser) {
+    next('/products');
+  } else {
+    next();
+  }
+});
+
+
 
 export default router;

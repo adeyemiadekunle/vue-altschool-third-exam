@@ -7,15 +7,15 @@
           <h1>Create An Account</h1>
         </div>
         <div class="form-body">
-          <form @submit.prevent="signup">
+          <form @submit.prevent="handleSubmit">
             <label> First Name </label>
-            <input type="text" v-model="firstname" />
+            <input type="text" id="firstName" v-model="firstName" />
             <label> Last Name </label>
-            <input type="text" v-model="lastname" />
+            <input type="text" id="lastName" v-model="lastName" />
             <label> Email </label>
-            <input type="email" v-model="email" />
+            <input type="email" id="email" v-model="email" />
             <label> Password </label>
-            <input type="password" v-model="password" />
+            <input type="password" id="password" v-model="password" />
             <button type="submit">Create An Account</button>
           </form>
         </div>
@@ -31,23 +31,36 @@
 </template>
 
 <script>
-// import { mapActions } from 'vuex'
-
 export default {
-  //   data() {
-  //     return {
-  //       name: '',
-  //       email: '',
-  //       password: ''
-  //     }
-  //   },
-  //   methods: {
-  //     ...mapActions(['signup']),
-  //     async signup() {
-  //       await this.signup({ name: this.name, email: this.email, password: this.password })
-  //       this.$router.push('/login')
-  //     }
-  //   }
+  data() {
+    return {
+      email: "",
+      password: "",
+      firstName: "",
+      lastName: "",
+    };
+  },
+  methods: {
+    handleSubmit() {
+      this.$store
+        .dispatch("signUp", {
+          email: this.email,
+          password: this.password,
+          firstName: this.firstName,
+          lastName: this.lastName,
+        })
+        .then(() => {
+          this.$router.push("/products");
+          console.log("success");
+          console.log(this.$store.state.user);
+          console.log(this.$store.state.firstName);
+          console.log(this.$store.state.lastName);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+  },
 };
 </script>
 
@@ -161,7 +174,6 @@ export default {
   text-decoration: none;
   transition: all 0.3s ease-in-out;
 }
-
 
 .existing-account-login .button:hover {
   background: blue;
