@@ -9,7 +9,7 @@
         <div class="form-body">
           <form @submit.prevent="handleSubmit">
             <label> First Name </label>
-            <input type="text" id="firstName" v-model="firstName" />
+            <input type="text" id="firstName" v-model="firstName" autofocus />
             <label> Last Name </label>
             <input type="text" id="lastName" v-model="lastName" />
             <label> Email </label>

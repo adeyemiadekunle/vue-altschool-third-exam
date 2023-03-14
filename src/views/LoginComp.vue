@@ -9,7 +9,7 @@
         <div class="form-body">
           <form @submit.prevent="handleSubmit">
             <label> Email </label>
-            <input type="email" id="email" v-model="email" />
+            <input type="email" id="email" v-model="email" autofocus />
             <label> Password </label>
             <input type="password" id="password" v-model="password" />
             <button type="submit">Login</button>

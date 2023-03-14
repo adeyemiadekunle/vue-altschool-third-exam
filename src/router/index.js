@@ -7,9 +7,33 @@ import Signup from '../views/SignUpComp.vue';
 import Products from '../views/ProductsComp.vue';
 import Product from '../views/ProductComp.vue';
 import NotFound from '../views/NotFound.vue';
-import {auth} from '../firebaseConfig';
+import { auth } from '../firebaseConfig';
 
 
+function requireAuth(to, from, next) {
+  const isAuthenticated = auth.currentUser;
+
+  if (isAuthenticated) {
+    next() // allow the user to access the route
+  } else {
+    next(
+      {
+        path: '/login',
+      },
+    ) // redirect the user to the login page
+  }
+}
+
+function norequireAuth(to, from, next) {
+  const isAuthenticated = auth.currentUser;
+
+  if (isAuthenticated) {
+    next(false) //  stop the user from accessing the route
+  }
+  else {
+    next() // allow the user to access the route
+  }
+}
 
 const routes = [
   {
@@ -22,18 +46,19 @@ const routes = [
         name: 'Home',
         component: Home,
       },
-     
+
       {
         path: '/products',
         name: 'Products',
         component: Products,
-          meta: { requiresAuth: true },
+        beforeEnter: requireAuth,
       },
       {
         path: '/products/:productId',
         name: 'Product',
         component: Product,
-          meta: { requiresAuth: true },
+        beforeEnter: requireAuth,
+
       },
       {
         path: '/:catchAll(.*)',
@@ -46,17 +71,15 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login,
-    meta: {
-      requiresAuth: false
-    }
+    beforeEnter: norequireAuth,
+
   },
   {
     path: '/signup',
     name: 'signUp',
     component: Signup,
-    meta: {
-      requiresAuth: false
-    }
+    beforeEnter: norequireAuth,
+
   },
 ];
 
@@ -67,24 +90,26 @@ const router = createRouter({
 
 
 
-router.beforeEach((to, from, next) => {
-  const isLoggedIn = auth.currentUser;
 
-  if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (!isLoggedIn) {
-      next({ name: 'Login' })
-      alert('Please login to continue')
-    } else {
-      next()
-    }
-  } else {
-    if (isLoggedIn && (to.name === 'Login' || to.name === 'signUp')) {
-      next({ name: 'Products' })
-    } else {
-      next()
-    }
-  }
-})
+
+// router.beforeEach((to, from, next) => {
+//   const isLoggedIn = auth.currentUser;
+
+//   if (to.matched.some(record => record.meta.requiresAuth)) {
+//     if (!isLoggedIn) {
+//       next({ name: 'Login' })
+//       alert('Please login to continue')
+//     } else {
+//       next()
+//     }
+//   } else {
+//     if (isLoggedIn && (to.name === 'Login' || to.name === 'signUp')) {
+//       next({ name: 'Products' })
+//     } else {
+//       next()
+//     }
+//   }
+// })
 
 
 
