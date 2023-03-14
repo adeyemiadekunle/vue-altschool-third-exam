@@ -4,6 +4,7 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, si
 
 
 
+
 // Initialize Firebase app
 const firebaseConfig = {
   // your firebase config object here
@@ -21,5 +22,8 @@ const app = initializeApp(firebaseConfig);
 // Initialize Firebase services
  const auth = getAuth(app);
  const db = getDatabase(app);
+
+
+
 
  export {app, auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, db, ref, set, get }

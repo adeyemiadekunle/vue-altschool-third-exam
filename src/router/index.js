@@ -16,6 +16,7 @@ function requireAuth(to, from, next) {
   if (isAuthenticated) {
     next() // allow the user to access the route
   } else {
+    alert('Please login to continue')
     next(
       {
         path: '/login',

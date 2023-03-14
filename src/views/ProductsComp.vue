@@ -34,7 +34,8 @@
 </template>
 
 <script>
-import { useProducts } from "@/composable/useProducts";
+import { useProducts } from "@/composables/useProducts";
+
 
 export default {
   setup() {

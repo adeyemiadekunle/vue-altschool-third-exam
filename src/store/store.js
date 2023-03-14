@@ -25,7 +25,7 @@ const store = createStore({
   },
   
   actions: {
-    signUp({ commit }, { email, password, firstName, lastName }) {
+   signUp({ commit }, { email, password, firstName, lastName }) {
       return new Promise((resolve, reject) => {
         createUserWithEmailAndPassword(auth, email, password)
           .then(userCredential => {
@@ -50,7 +50,8 @@ const store = createStore({
           });
       });
     },
-    logIn({ commit }, { email, password }) {
+
+ logIn({ commit }, { email, password }) {
       return new Promise((resolve, reject) => {
         signInWithEmailAndPassword(auth, email, password)
           .then(userCredential => {

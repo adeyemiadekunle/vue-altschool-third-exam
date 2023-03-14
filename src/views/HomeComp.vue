@@ -3,9 +3,7 @@
     <div class="container">
       <div class="home-content">
         <h1>Shop the Latest Trends in Fashion</h1>
-        <p>
-          Get the hottest styles at affordable prices
-        </p>
+        <p>Get the hottest styles at affordable prices</p>
         <router-link class="button" to="/products"> Shop Now</router-link>
       </div>
     </div>
@@ -13,7 +11,9 @@
 </template>
 
 <script>
-export default {};
+export default {
+  name: "HomeComp",
+};
 </script>
 
 <style  scoped>
@@ -21,7 +21,6 @@ export default {};
   /* width: 100%;   */
   height: 80vh;
   /* background: url("../assets/images/home-bg.jpg") no-repeat center center/cover; */
-
 }
 
 .container {
@@ -49,7 +48,6 @@ export default {};
   color: #000;
   width: 50%;
   padding-bottom: 2rem;
- 
 }
 
 .home-content .button {
@@ -66,11 +64,9 @@ export default {};
 }
 
 .home-content .button:hover {
- background-color: #fff;
+  background-color: #fff;
   color: #428bca;
   border: 2px solid #428bca;
   cursor: pointer;
 }
-
-
 </style>

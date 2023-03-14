@@ -8,18 +8,29 @@
         <div class="nav-item">
           <router-link to="/">Home</router-link>
           <router-link to="/products">Products</router-link>
-          <a  v-if="isLoggedIn" @click="logout">Logout</a>
-          <router-link   v-if="!isLoggedIn" to="/login">Login</router-link>
-          <router-link  v-if="!isLoggedIn" to="/signup">Signup</router-link>
-         </div>
+          <a v-if="isLoggedIn" class="name" > Welcome {{currentUserFirstName}} {{currentUserLastName}} </a>
+          <a v-if="isLoggedIn" @click="logout">Logout</a>
+          <router-link v-if="!isLoggedIn" to="/login">Login</router-link>
+          <router-link v-if="!isLoggedIn" to="/signup">Signup</router-link>
+        </div>
       </nav>
     </div>
   </div>
 </template>
 
 <script>
+import useCurrentUser from '@/composables/userCurrentUser';
 export default {
   name: "NavBarComp",
+
+  setup() {
+    const { currentUserFirstName, currentUserLastName } = useCurrentUser();
+
+    return {
+      currentUserFirstName,
+      currentUserLastName
+    };
+  },
 
   computed: {
     isLoggedIn() {
@@ -27,20 +38,21 @@ export default {
     },
     currentUser() {
       return this.$store.getters.currentUser;
-    }
+    },
   },
 
   methods: {
     logout() {
-      this.$store.dispatch("logOut")
-      .then(() => {
-        alert("You have successfully logged out");
-        this.$router.push("/login");
-      })
-      .catch((error) => {
-        console.error(error);
-        alert("Something went wrong");
-      });
+      this.$store
+        .dispatch("logOut")
+        .then(() => {
+          alert("You have successfully logged out");
+          this.$router.push("/login");
+        })
+        .catch((error) => {
+          console.error(error);
+          alert("Something went wrong");
+        });
     },
   },
 };
@@ -97,13 +109,14 @@ export default {
   font-size: 1.2rem;
   padding: 0.5rem 0.5rem;
   transition: all 0.3s ease-in-out;
-
-
 }
 
 .nav-items a:hover {
   background: black;
   color: white;
+}
 
+.name {
+  color: red !important;
 }
 </style>
