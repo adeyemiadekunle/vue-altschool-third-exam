@@ -1,10 +1,8 @@
 <template>
     <div class="footer">
         <div class="container">
-            Hello Footer
-
+          <p>  @2023 AltStore | All Rights Reserved</p>
         </div>
-
     </div>
 </template>
 
@@ -19,7 +17,7 @@
 .footer {
     background-color: #f8f9fa;
     height: 10vh;
-    border: 1px solid red;
+ border-top: 1px solid grey;
 
 
 
@@ -27,6 +25,16 @@
 .container {
     width: 95%;
     margin: 0 auto;
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+p {
+    font-size: 1rem;
+    font-weight: 700;
+    color: black;
 }
 
 </style>

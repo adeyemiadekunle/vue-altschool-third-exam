@@ -2,13 +2,11 @@
   <div class="home">
     <div class="container">
       <div class="home-content">
-        <h1>Your Latest Bloq</h1>
+        <h1>Shop the Latest Trends in Fashion</h1>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Reprehenderit, enim voluptate? Sed, ab saepe deleniti enim beatae modi
-          nisi unde!
+          Get the hottest styles at affordable prices
         </p>
-        <button>Shop Now</button>
+        <router-link class="button" to="/products"> Shop Now</router-link>
       </div>
     </div>
   </div>
@@ -41,7 +39,7 @@ export default {};
   font-size: 3rem;
   font-weight: 700;
   color: #428bca;
-  font-style: italic;
+  /* font-style: italic; */
   margin-top: 7rem;
 }
 
@@ -50,10 +48,11 @@ export default {};
   font-weight: 400;
   color: #000;
   width: 50%;
-  /* font-style: italic; */
+  padding-bottom: 2rem;
+ 
 }
 
-.home-content button {
+.home-content .button {
   background-color: #428bca;
   color: #fff;
   padding: 0.5rem 1rem;
@@ -61,12 +60,12 @@ export default {};
   border-radius: 5px;
   font-size: 1.2rem;
   font-weight: 400;
-  margin-top: 1rem;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
+  text-decoration: none;
 }
 
-.home-content button:hover {
+.home-content .button:hover {
  background-color: #fff;
   color: #428bca;
   border: 2px solid #428bca;

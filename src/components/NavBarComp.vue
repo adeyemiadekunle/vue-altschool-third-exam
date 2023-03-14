@@ -2,15 +2,15 @@
   <div class="header">
     <div class="nav-container">
       <div class="logo_container">
-        <h3 class="logo">AltShop</h3>
+        <router-link to="/" class="logo">AltStore</router-link>
       </div>
       <nav class="nav-items">
         <div class="nav-item">
           <router-link to="/">Home</router-link>
           <router-link to="/products">Products</router-link>
-          <a v-if="isLoggedIn" @click="logout">Logout</a>
-          <router-link  v-if="!isLoggedIn" to="/login">Login</router-link>
-          <router-link v-if="!isLoggedIn" to="/signup">Signup</router-link>
+          <a  v-if="isLoggedIn" @click="logout">Logout</a>
+          <router-link   v-if="!isLoggedIn" to="/login">Login</router-link>
+          <router-link  v-if="!isLoggedIn" to="/signup">Signup</router-link>
          </div>
       </nav>
     </div>
@@ -68,7 +68,8 @@ export default {
   font-size: 2rem;
   font-weight: 700;
   color: #428bca;
-  font-style: italic;
+  /* font-style: italic; */
+  text-decoration: none;
 }
 
 .nav-container {
@@ -76,6 +77,7 @@ export default {
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
+  height: 100%;
 }
 
 .nav-items {
@@ -93,5 +95,15 @@ export default {
   text-decoration: none;
   color: black;
   font-size: 1.2rem;
+  padding: 0.5rem 0.5rem;
+  transition: all 0.3s ease-in-out;
+
+
+}
+
+.nav-items a:hover {
+  background: black;
+  color: white;
+
 }
 </style>
