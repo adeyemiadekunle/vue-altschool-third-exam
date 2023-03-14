@@ -44,14 +44,12 @@ export default {
           password: this.password,
         })
         .then(() => {
-          this.$router.push("/products");
-          console.log('success');
-          console.log(this.$store.state.user);
-          // console.log(this.$store.state.firstName);
-          // console.log(this.$store.state.lastName);
+          alert ("You have successfully logged in");
+          this.$router.push("/products"); 
         })
         .catch((error) => {
           console.error(error);
+          alert("Invalid email or password");
         });
     },
   },

@@ -32,9 +32,15 @@ export default {
 
   methods: {
     logout() {
-      this.$store.dispatch("logOut");
-      this.$router.push("/login");
-      
+      this.$store.dispatch("logOut")
+      .then(() => {
+        alert("You have successfully logged out");
+        this.$router.push("/login");
+      })
+      .catch((error) => {
+        console.error(error);
+        alert("Something went wrong");
+      });
     },
   },
 };

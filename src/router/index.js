@@ -72,7 +72,8 @@ router.beforeEach((to, from, next) => {
 
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (!isLoggedIn) {
-      next({ name: 'Login' })
+      // next({ name: 'Login' })
+      alert('Please login to continue')
     } else {
       next()
     }

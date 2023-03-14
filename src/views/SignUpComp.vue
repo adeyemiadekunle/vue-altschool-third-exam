@@ -50,14 +50,12 @@ export default {
           lastName: this.lastName,
         })
         .then(() => {
+          alert("You have successfully signed up");
           this.$router.push("/products");
-          console.log("success");
-          console.log(this.$store.state.user);
-          console.log(this.$store.state.firstName);
-          console.log(this.$store.state.lastName);
         })
         .catch((error) => {
           console.error(error);
+          alert("Invalid email or password");
         });
     },
   },
