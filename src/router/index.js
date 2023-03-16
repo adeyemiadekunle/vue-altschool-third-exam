@@ -7,11 +7,20 @@ import Signup from '../views/SignUpComp.vue';
 import Products from '../views/ProductsComp.vue';
 import Product from '../views/ProductComp.vue';
 import NotFound from '../views/NotFound.vue';
-import { auth } from '../firebaseConfig';
+import { auth, onAuthStateChanged } from '../firebaseConfig';
 
 
-function requireAuth(to, from, next) {
-  const isAuthenticated = auth.currentUser;
+ const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      unsubscribe();
+      resolve(user);
+    }, reject);
+  });
+};
+
+ async function requireAuth (to, from, next) {
+  const isAuthenticated = await getCurrentUser();
 
   if (isAuthenticated) {
     next() // allow the user to access the route
@@ -25,8 +34,8 @@ function requireAuth(to, from, next) {
   }
 }
 
-function norequireAuth(to, from, next) {
-  const isAuthenticated = auth.currentUser;
+async function norequireAuth(to, from, next) {
+  const isAuthenticated = await getCurrentUser();
 
   if (isAuthenticated) {
     next(false) //  stop the user from accessing the route

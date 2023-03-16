@@ -7,8 +7,7 @@ const store = createStore({
     user: null,
     firstName: '',
     lastName: '',
-    isLoggedIn: false,
-  },
+    },
   mutations: {
     setUser(state, user) {
       state.user = user;
@@ -19,9 +18,7 @@ const store = createStore({
     setLastName(state, lastName) {
       state.lastName = lastName;
     },
-    setIsLoggedIn(state) {
-      state.isLoggedIn = true;
-    }
+    
   },
   
   actions: {
@@ -31,8 +28,7 @@ const store = createStore({
           .then(userCredential => {
             const user = userCredential.user;
             commit('setUser', user.uid);
-            commit('setIsLoggedIn', true);
-            commit('setFirstName', firstName);
+           commit('setFirstName', firstName);
             commit('setLastName', lastName);
             set(ref(db, `users/${user.uid}`), {
               firstName: firstName,
@@ -61,7 +57,6 @@ const store = createStore({
             get(userRef)
               .then(snapshot => {
                 const userData = snapshot.val();
-                commit('setIsLoggedIn', true)
                 commit('setFirstName', userData.firstName);
                 commit('setLastName', userData.lastName);
                 console.log(userData.firstName);
@@ -96,7 +91,6 @@ const store = createStore({
     currentUser: state => state.user,
     userFirstName: state => state.firstName,
     userLastName: state => state.lastName,
-    isLoggedIn: state => state.isLoggedIn
   }
 });
 

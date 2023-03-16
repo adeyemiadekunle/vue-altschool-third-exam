@@ -25,7 +25,7 @@
             </div>
           </div>
           <div class="button-container">
-            <button>Add to Cart</button>
+            <button @click="$router.push(`/products/${product.id}`)" >View product</button>
           </div>
         </div>
       </div>

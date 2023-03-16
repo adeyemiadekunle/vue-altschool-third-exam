@@ -8,7 +8,9 @@
         <div class="nav-item">
           <router-link to="/">Home</router-link>
           <router-link to="/products">Products</router-link>
-          <a v-if="isLoggedIn" class="name" > Welcome {{currentUserFirstName}} {{currentUserLastName}} </a>
+          <a v-if="isLoggedIn" class="name">
+            Welcome {{ currentUserFirstName }} {{ currentUserLastName }}
+          </a>
           <a v-if="isLoggedIn" @click="logout">Logout</a>
           <router-link v-if="!isLoggedIn" to="/login">Login</router-link>
           <router-link v-if="!isLoggedIn" to="/signup">Signup</router-link>
@@ -19,26 +21,30 @@
 </template>
 
 <script>
-import useCurrentUser from '@/composables/userCurrentUser';
+import useCurrentUser from "@/composables/userCurrentUser";
+import { onMounted, ref } from "vue";
+import { auth, onAuthStateChanged } from "../firebaseConfig";
 export default {
   name: "NavBarComp",
-
   setup() {
     const { currentUserFirstName, currentUserLastName } = useCurrentUser();
+    const isLoggedIn = ref(false);
+
+    onMounted(() => {
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          isLoggedIn.value = true;
+        } else {
+          isLoggedIn.value = false;
+        }
+      });
+    });
 
     return {
+      isLoggedIn,
       currentUserFirstName,
-      currentUserLastName
+      currentUserLastName,
     };
-  },
-
-  computed: {
-    isLoggedIn() {
-      return this.$store.getters.isLoggedIn;
-    },
-    currentUser() {
-      return this.$store.getters.currentUser;
-    },
   },
 
   methods: {
@@ -118,5 +124,10 @@ export default {
 
 .name {
   color: red !important;
+}
+
+.name:hover {
+  background: red !important;
+  color: white !important;
 }
 </style>
