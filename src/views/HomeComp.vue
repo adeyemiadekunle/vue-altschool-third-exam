@@ -2,9 +2,15 @@
   <div class="home">
     <div class="container">
       <div class="home-content">
-        <h1>Shop the Latest Trends in Fashion</h1>
+        <div>
+            <h1>Shop the Latest Trends in Fashion, Phones and Beauty Products</h1>
         <p>Get the hottest styles at affordable prices</p>
         <router-link class="button" to="/products"> Shop Now</router-link>
+        </div>
+        <div class="image-container">
+            <img src="../assets/hero-image.webp" alt="hero-image">
+        </div>
+        
       </div>
     </div>
   </div>
@@ -18,9 +24,7 @@ export default {
 
 <style  scoped>
 .home {
-  /* width: 100%;   */
   height: 80vh;
-  /* background: url("../assets/images/home-bg.jpg") no-repeat center center/cover; */
 }
 
 .container {
@@ -32,6 +36,17 @@ export default {
 
 .home-content {
   width: 100%;
+  display: flex;
+}
+
+.image-container {
+  /* margin-top: 80px; */
+  margin-left: 50px;
+}
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .home-content h1 {

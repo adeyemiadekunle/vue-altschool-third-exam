@@ -123,11 +123,11 @@ export default {
 }
 
 .name {
-  color: red !important;
+  color: #428bca !important;
 }
 
 .name:hover {
-  background: red !important;
+  background: #428bca !important;
   color: white !important;
 }
 </style>
